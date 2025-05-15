@@ -8,4 +8,11 @@ if (menuToggle && navLinks) {
     });
 }
 
-// Placeholder for future JS functionality (e.g., sign in/up, course navigation) 
+
+// for the run.php page
+function refresh(){
+    let editor_value = document.getElementById('editor_textarea').value;
+    let output = document.getElementById('output_iframe');
+    output.contentDocument.body.innerHTML = editor_value;
+}
+ 
