@@ -1,3 +1,15 @@
+<?php
+require_once 'config.php';
+$language_id = 0; // Default value
+if(isset($_GET['language_id'])) {
+    echo "language_id: " . htmlspecialchars($_GET['language_id']) . "<br>";
+} 
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,16 +29,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      <?php
+      $sql = "SELECT * FROM programing_language";
+      $result = $pdo->query($sql);
+      foreach ($result as $row) { ?>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">HTML</a>
+          <a class="nav-link active" aria-current="page" href="lectures.php?language_id=<?php echo htmlspecialchars($row['id']); ?>"><?php echo htmlspecialchars($row['language_name']); ?></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">CSS</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">JavaScript</a>
-        </li>
+      <?php } 
+      
+      
+      
+      ?>
         <li class="nav-item">
           <a class="nav-link" href="#">Quizzes</a>
         </li>

@@ -16,7 +16,7 @@
                 <button type="button" href="" class="btn btn-primary" onclick="refresh()">Run</button>
             </div>
             <div class="editor">
-                <textarea name="" id="editor_textarea"></textarea>
+                <textarea style="font-family:monospace;" name="" id="editor_textarea"></textarea>
             </div>
         </div>
         <div class="right">

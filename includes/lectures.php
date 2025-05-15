@@ -1,8 +1,10 @@
 <?php
 require_once 'nav.php';
 require_once 'config.php';
-?>
 
+$id = $_GET['language_id'] ;
+echo "language_id: " . htmlspecialchars($id) . "<br>";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +15,26 @@ require_once 'config.php';
 <body>
    <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">HTML Tutorial</a>
-    <a class="navbar-brand" href="#">CSS Tutorial</a>
-    <a class="navbar-brand" href="#">JavaScript Tutorial</a>
+    <?php
+    $sql = "SELECT * FROM programing_language WHERE id = " . intval($id);
+    $result = $pdo->query($sql);
+    foreach ($result as $row) { ?>
+        <a class="navbar-brand" href="#"><?php echo htmlspecialchars($row['language_name']); ?> Tutorial</a>
+    <?php } ?>
+  
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <?php
+          $sql = "SELECT * FROM  lectures WHERE language_id = " . intval($id);
+          $result = $pdo->query($sql);
+          foreach ($result as $row) { ?>
+            <a class="nav-link active" aria-current="page" href="#"><?php echo htmlspecialchars($row['lecture_title']); ?></a>
+          <?php } ?>
+          
         </li>
       </ul>
     </div>
