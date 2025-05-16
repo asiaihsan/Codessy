@@ -61,6 +61,21 @@ class Database {
             return false;
         }
     }
+
+    public function adminLogin($username, $password) {
+        try {
+            $sql = "SELECT * FROM admins WHERE admin_name = ? AND admin_password = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$username, $password]);
+            if($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PDOException $e) {
+            return false;
+        }
+    }
 }
 
 $pdo = new Database();
