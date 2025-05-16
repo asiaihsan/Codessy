@@ -46,7 +46,7 @@ $_GET['language_id'] = 1;
       </ul>
       <div class="d-flex" role="search">
         <a class="btn btn-primary">Sign In</a>
-        <a class="btn text-primary">Sign Up</a>
+        <a href="sign_up.php" class="btn text-primary">Sign Up</a>
       </div>
     </div>
   </div>

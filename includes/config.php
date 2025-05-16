@@ -3,52 +3,63 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'w3schools_clone');
+define('DB_NAME', 'codessy');
 
 class Database {
     private $pdo;
 
     public function __construct() {
-        try{
+        try {
             $this->pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e){
+        } catch(PDOException $e) {
             die("ERROR: Could not connect. " . $e->getMessage());
         }
     }
 
-    public function query($sql){
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt;
-    }
-      public function secure($data){
-        return $this->pdo->quote(htmlspecialchars($data));
+    public function query($sql) {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt;
+        } catch(PDOException $e) {
+            return false;
+        }
     }
 
-    public function signUp($username, $password, $email){
-        $username = $this->secure($username);
-        $password = $this->secure($password);
-        $email = $this->secure($email);
-        $sql = "INSERT INTO users (user_name, user_password, user_email, created_at) VALUES (:username, :password, :email, NOW())";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', password_hash($password, PASSWORD_DEFAULT));
-        $stmt->bindParam(':email', $email);
-        return $stmt->execute();
+    public function secure($data) {
+        return htmlspecialchars(trim($data));
     }
-    public function login($username, $password){
-        $username = $this->secure($username);
-        $password = $this->secure($password);
-        $sql = "SELECT * FROM users WHERE user_name = :username";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($user && password_verify($password, $user['user_password'])){
-            return true;
+
+    public function signUp($username, $password, $email) {
+        try {
+            // Check if username or email already exists
+            $check = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ? OR user_email = ?");
+            $check->execute([$username, $email]);
+            if($check->rowCount() > 0) {
+                return false;
+            }
+            
+            $sql = "INSERT INTO users (user_name, user_password, user_email, created_at) VALUES (?, ?, ?, NOW())";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([$username, $password, $email]);
+        } catch(PDOException $e) {
+            return false;
         }
-        return false;
+    }
+
+    public function login($username, $password) {
+        try {
+            $check = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ? OR user_email = ?");
+            $check->execute([$username, $password]);
+            if($check->rowCount() > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        } catch(PDOException $e) {
+            return false;
+        }
     }
 }
 

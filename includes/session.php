@@ -1,44 +1,38 @@
 <?php
 class Session{
-
-    public $email;
-    public $password;
+    public $username;
+    public $isLoggedIn;
 
     public function __construct(){
         session_start();
         $this->Check_login();
     }
 
-
-    public function login($email, $password){
-        $_SESSION['email'] = $email;
-        $_SESSION['password'] = $password;
-
+    public function login($username){
+        $_SESSION['username'] = $username;
+        $_SESSION['isLoggedIn'] = true;
+        $this->username = $username;
+        $this->isLoggedIn = true;
     }
-
 
     public function logout(){
         session_destroy();
-        // setcookie(session_name(), '', time() - 3600, '/');
-        unset( $_SESSION['email']);
-        unset( $_SESSION['password']);
-        unset($this->password);
-        unset($this->email);
+        unset($_SESSION['username']);
+        unset($_SESSION['isLoggedIn']);
+        unset($this->username);
+        unset($this->isLoggedIn);
     }
-
 
     private function Check_login(){
-        if(isset($_SESSION['email']) && isset($_SESSION['password'])){
-            $this->email= $_SESSION['email'];
-            $this->password= $_SESSION['password'];
-        }else{
-            unset($this->password);
-            unset($this->email);
+        if(isset($_SESSION['username']) && isset($_SESSION['isLoggedIn'])){
+            $this->username = $_SESSION['username'];
+            $this->isLoggedIn = true;
+        } else {
+            unset($this->username);
+            unset($this->isLoggedIn);
         }
     }
-
 }
-
 
 $session = new Session();
 
