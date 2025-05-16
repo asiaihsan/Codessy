@@ -1,9 +1,17 @@
 <?php
+
 require_once 'nav.php';
 require_once 'config.php';
 
 $id = $_GET['language_id'] ;
 echo "language_id: " . htmlspecialchars($id) . "<br>";
+$lecture_id = isset($_GET['lecture_id']);
+if (!isset($lecture_id)) {
+    $lecture_id = 1; // Default value if not set
+} else {
+    $lecture_id = isset($_GET['lecture_id']);
+}
+echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,10 +24,9 @@ echo "language_id: " . htmlspecialchars($id) . "<br>";
    <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <?php
-    $sql = "SELECT * FROM programing_language WHERE id = " . intval($id);
-    $result = $pdo->query($sql);
+    $result = $pdo->query("SELECT * FROM programing_language WHERE id = " . intval($id));
     foreach ($result as $row) { ?>
-        <a class="navbar-brand" href="#"><?php echo htmlspecialchars($row['language_name']); ?> Tutorial</a>
+        <label class="navbar-brand" ><?php echo htmlspecialchars($row['language_name']); ?> Tutorial</label>
     <?php } ?>
   
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,10 +36,9 @@ echo "language_id: " . htmlspecialchars($id) . "<br>";
       <ul class="navbar-nav">
         <li class="nav-item">
           <?php
-          $sql = "SELECT * FROM  lectures WHERE language_id = " . intval($id);
-          $result = $pdo->query($sql);
+          $result = $pdo->query("SELECT * FROM  lectures WHERE language_id = " . intval($id));
           foreach ($result as $row) { ?>
-            <a class="nav-link active" aria-current="page" href="#"><?php echo htmlspecialchars($row['lecture_title']); ?></a>
+            <a class="nav-link active" aria-current="page" href="lectures.php?lecture_id=<?php echo htmlspecialchars($row['id']); ?>&language_id=<?php echo htmlspecialchars($id); ?>"><?php echo htmlspecialchars($row['lecture_title']); ?></a>
           <?php } ?>
           
         </li>
@@ -41,18 +47,43 @@ echo "language_id: " . htmlspecialchars($id) . "<br>";
   </div>
 </nav>
 
+<?php
+
+$id = $_GET['language_id'] ;
+$lecture_id = 0;
+if (!isset($_GET['lecture_id'])) {
+  $sql="SELECT id FROM lectures WHERE language_id = " . intval($id) . " LIMIT 1";
+  $result = $pdo->query($sql);
+  $lecture_id = $result->fetchColumn(); // Get the first lecture ID
+}else{
+$lecture_id = $_GET['lecture_id'] ;
+}
+// Validate and sanitize the input
+echo "language_id: " . htmlspecialchars($id) . "<br>";
+echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
+?>
+
+
 <div class="container">
   <h1>Welcome to the  Tutorials</h1>
     <div class="left">
         <div>
             <label for="">Example</label>
         </div>
-        <div class="editor">
-            this is an example
-        </div>
+        <?php
+        $result = $pdo->query("SELECT lecture_code FROM lectures JOIN programing_language ON lectures.language_id = programing_language.id WHERE lectures.id = " . intval($lecture_id) . " AND programing_language.id = " . intval($id));
+        foreach ($result as $row) { ?>
+            <div class="example">
+                <pre><code><?php echo htmlspecialchars($row['lecture_code']); ?></code></pre>
+            </div>
+        <?php } ?>
+     
+       
         <div class="button">
-            <a href="" class="btn btn-primary">Try it Yourself</a>
+            <a href="run.php?language_id=<?php echo htmlspecialchars($id); ?>&lecture_id=<?php echo htmlspecialchars($lecture_id); ?>" class="btn btn-primary">Try it Yourself</a>
         </div>
     </div>
+</div>
+
 </body>
 </html>

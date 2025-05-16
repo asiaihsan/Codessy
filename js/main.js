@@ -7,12 +7,14 @@ if (menuToggle && navLinks) {
         navLinks.classList.toggle('active');
     });
 }
+    
 
 
-// for the run.php page
 function refresh(){
     let editor_value = document.getElementById('editor_textarea').value;
     let output = document.getElementById('output_iframe');
     output.contentDocument.body.innerHTML = editor_value;
 }
+
+refresh();
  

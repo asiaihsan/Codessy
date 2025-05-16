@@ -1,3 +1,14 @@
+
+
+<?php
+
+require_once 'config.php';
+$id = $_GET['language_id'] ;
+$lecture_id = $_GET['lecture_id'] ;
+echo "language_id: " . htmlspecialchars($id) . "<br>";
+echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +27,13 @@
                 <button type="button" href="" class="btn btn-primary" onclick="refresh()">Run</button>
             </div>
             <div class="editor">
-                <textarea style="font-family:monospace;" name="" id="editor_textarea"></textarea>
+                <textarea style="font-family:monospace;" rows="20" cols="80" name="" id="editor_textarea">
+<?php
+$result = $pdo->query("SELECT lecture_code FROM lectures JOIN programing_language ON lectures.language_id = programing_language.id WHERE lectures.id = " . intval($lecture_id) . " AND programing_language.id = " . intval($id));
+foreach ($result as $row) { ?>
+<?php echo htmlspecialchars($row['lecture_code']); ?>
+<?php } ?>
+                </textarea>
             </div>
         </div>
         <div class="right">
@@ -24,9 +41,16 @@
                 <label for="">Output</label>
             </div>
             <div class="output">
-                <iframe src="" frameborder="0" id="output_iframe"></iframe>
+                <iframe name="output_frame" id="output_iframe" style="width: 100%; height: 300px;" frameborder="0">
+                </iframe>
             </div>
-        </div>
+            <script>
+           
+
+           let editor_value = document.getElementById('editor_textarea').value;
+    let output = document.getElementById('output_iframe');
+    output.contentDocument.body.innerHTML = editor_value;
+            </script>    </div>
     </div>
     <script src="../js/main.js"></script>
 </body>

@@ -1,15 +1,14 @@
 <?php
 require_once 'config.php';
-$language_id = 0; // Default value
+
 if(isset($_GET['language_id'])) {
     echo "language_id: " . htmlspecialchars($_GET['language_id']) . "<br>";
-} 
+} else{
+$_GET['language_id'] = 1;
+}
+
 
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +30,7 @@ if(isset($_GET['language_id'])) {
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
       <?php
-      $sql = "SELECT * FROM programing_language";
-      $result = $pdo->query($sql);
+      $result = $pdo->query("SELECT * FROM programing_language");
       foreach ($result as $row) { ?>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="lectures.php?language_id=<?php echo htmlspecialchars($row['id']); ?>"><?php echo htmlspecialchars($row['language_name']); ?></a>
