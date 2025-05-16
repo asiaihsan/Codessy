@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Both username and password are required.";
     } else {
         if ($pdo->adminLogin($username, $password)) {
-            $_SESSION['admin_name'] = $username;
-            $_SESSION['admin_password'] = $password;
+            $session->adminID = $pdo->adminID;
+            $session->adminSession($username, $password);
             header("Location: admin_dashbaord.php");
             exit();
         } else {

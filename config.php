@@ -7,6 +7,8 @@ define('DB_NAME', 'codessy');
 
 class Database {
     private $pdo;
+    public $adminID;
+    public $userID;
 
     public function __construct() {
         try {
@@ -53,6 +55,8 @@ class Database {
             $check = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ? OR user_email = ?");
             $check->execute([$username, $password]);
             if($check->rowCount() > 0) {
+                $user = $check->fetch(PDO::FETCH_ASSOC);
+                $this->userID = $user['id'];
                 return true;
             }else{
                 return false;
@@ -68,6 +72,8 @@ class Database {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$username, $password]);
             if($stmt->rowCount() > 0) {
+                $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+                $this->adminID = $admin['id'];
                 return true;
             } else {
                 return false;
