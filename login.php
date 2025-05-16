@@ -14,7 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Both username and password are required.";
     } else {
         if ($pdo->login($username, $password)) {
+            $session->userID = $pdo->userID;
+            $session->user_email = $pdo->user_email;
             $session->login($username, $password);
+            
             header("Location: lectures.php");
             exit();
         } else {

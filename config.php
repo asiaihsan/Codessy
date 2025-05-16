@@ -9,6 +9,7 @@ class Database {
     private $pdo;
     public $adminID;
     public $userID;
+    public $user_email;
 
     public function __construct() {
         try {
@@ -57,6 +58,7 @@ class Database {
             if($check->rowCount() > 0) {
                 $user = $check->fetch(PDO::FETCH_ASSOC);
                 $this->userID = $user['id'];
+                $this->user_email = $user['user_email'];
                 return true;
             }else{
                 return false;
