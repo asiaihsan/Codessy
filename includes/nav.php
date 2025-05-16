@@ -44,10 +44,17 @@ $_GET['language_id'] = 1;
           <a class="nav-link" href="#">Quizzes</a>
         </li>
       </ul>
-      <div class="d-flex" role="search">
-        <a class="btn btn-primary">Sign In</a>
+      <?php
+      if(!isset($_SESSION['username']) ) { ?>
+       <div class="d-flex" role="search">
+        <a href="login.php" class="btn btn-primary">Sign In</a>
         <a href="sign_up.php" class="btn text-primary">Sign Up</a>
       </div>
+      <?php } else if(isset($_SESSION['username'])) { ?>
+        
+        <a class="btn btn-primary" href="?logout">Logout</a>
+       
+      <?php } ?>
     </div>
   </div>
 </nav>

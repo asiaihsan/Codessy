@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-require_once 'session.php';
+
 
 // If user is already logged in, redirect to index.html
 if ($session->isLoggedIn) {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if ($pdo->signUp($username, $password, $email)) {
             $session->login($username);
-            header("Location: ../index.html");
+            header("Location: lectures.php");
             exit();
         } else {
             $error = "Sign up failed. Username or email might already exist.";

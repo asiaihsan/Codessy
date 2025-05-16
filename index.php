@@ -1,3 +1,9 @@
+<?php
+require_once 'includes/nav.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,5 +1,5 @@
 <?php
-
+require_once 'session.php';
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
@@ -64,4 +64,12 @@ class Database {
 }
 
 $pdo = new Database();
+
+
+if(isset($_GET['logout'])) {
+    session_start();
+    session_destroy();
+    header("Location:login.php");
+    exit();
+}
 ?>

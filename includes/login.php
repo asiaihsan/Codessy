@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-require_once 'session.php';
+
 
 
 $error = '';
@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Both username and password are required.";
     } else {
         if ($pdo->login($username, $password)) {
-            $session->login($username);
-            header("Location: ../index.html");
+            $session->login($username, $password);
+            header("Location: lectures.php");
             exit();
         } else {
             $error = "Invalid username or password.";
