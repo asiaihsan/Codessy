@@ -41,7 +41,7 @@ $_GET['language_id'] = 1;
       
       ?>
         <li class="nav-item">
-          <a class="nav-link" href="#">Quizzes</a>
+          <a class="nav-link" href="quiz.php?language_id=<?php echo htmlspecialchars($row['id']); ?>">Quizzes</a>
         </li>
       </ul>
       <?php

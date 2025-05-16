@@ -24,7 +24,7 @@ echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
         <div class="left">
             <div class="text_run">
                 <label for="">Code Editor</label>
-                <button type="button" href="" class="btn btn-primary" onclick="refresh()">Run</button>
+                <button type="button" href="" class="btn btn-primary" onclick="runCode()">Run</button>
             </div>
             <div class="editor">
                 <textarea style="font-family:monospace;" rows="20" cols="80" name="" id="editor_textarea">
@@ -44,14 +44,22 @@ foreach ($result as $row) { ?>
                 <iframe name="output_frame" id="output_iframe" style="width: 100%; height: 300px;" frameborder="0">
                 </iframe>
             </div>
-            <script>
-           
-
+             
+            
+        </div>
+    </div>
+    <script src="/js/main.js"></script>
+    <script>
            let editor_value = document.getElementById('editor_textarea').value;
     let output = document.getElementById('output_iframe');
     output.contentDocument.body.innerHTML = editor_value;
-            </script>    </div>
-    </div>
-    <script src="../js/main.js"></script>
+
+
+    function runCode() {
+        let code = document.getElementById('editor_textarea').value;
+        let output = document.getElementById('output_iframe');
+        output.contentDocument.body.innerHTML = code;
+    }
+    </script>
 </body>
 </html>

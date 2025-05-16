@@ -7,14 +7,9 @@ if (menuToggle && navLinks) {
         navLinks.classList.toggle('active');
     });
 }
-    
 
-
-function refresh(){
+function runCode(){
     let editor_value = document.getElementById('editor_textarea').value;
     let output = document.getElementById('output_iframe');
     output.contentDocument.body.innerHTML = editor_value;
 }
-
-refresh();
- 

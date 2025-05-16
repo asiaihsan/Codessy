@@ -82,6 +82,9 @@ echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
         <div class="button">
             <a href="run.php?language_id=<?php echo htmlspecialchars($id); ?>&lecture_id=<?php echo htmlspecialchars($lecture_id); ?>" class="btn btn-primary">Try it Yourself</a>
         </div>
+        <div class="button">
+          <a href="quiz.php?lecture_id=<?php echo htmlspecialchars($lecture_id); ?>&language_id=<?php echo htmlspecialchars($id); ?>" class="btn btn-primary">Take Quiz</a>
+        </div>
     </div>
 </div>
 
