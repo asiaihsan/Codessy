@@ -60,8 +60,7 @@ $_GET['language_id'] = 1;
         <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
           <li><a href=""><?php echo htmlspecialchars($session->userID); ?></a></li>
           <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Dashboard</a></li>
-          <li><a class="dropdown-item" href="#">Bookmarks</a></li>
+          <li><a class="dropdown-item" href="user_dashboard.php">Dashboard</a></li>
           <li><a class="dropdown-item" href="?logout">Logout</a></li>
         </ul>
       </div>

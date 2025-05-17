@@ -9,7 +9,6 @@ class Database {
     private $pdo;
     public $adminID;
     public $userID;
-    public $user_email;
 
     public function __construct() {
         try {
@@ -53,13 +52,12 @@ class Database {
                 if ($user->rowCount() > 0) {
                     $userData = $user->fetch(PDO::FETCH_ASSOC);
                     $this->userID = $userData['id'];
-                    $this->user_email = $userData['user_email'];
                     // Start session and set session variables
                     if (session_status() === PHP_SESSION_NONE) {
                         session_start();
                     }
                     $_SESSION['user_id'] = $this->userID;
-                    $_SESSION['user_email'] = $this->user_email;
+
                     return true;
                 }
             }
@@ -76,7 +74,6 @@ class Database {
             if($check->rowCount() > 0) {
                 $user = $check->fetch(PDO::FETCH_ASSOC);
                 $this->userID = $user['id'];
-                $this->user_email = $user['user_email'];
                 return true;
             }else{
                 return false;

@@ -2,7 +2,6 @@
 class Session{
     public $username;
     public $password;
-    public $user_email;
     public $userID;
     public $isLoggedIn;
 
@@ -55,7 +54,6 @@ class Session{
     public function login($username, $password){
         $_SESSION['password'] = $password;
         $_SESSION['username'] = $username;
-        $_SESSION['user_email'] = $this->user_email;
         $_SESSION['userID'] = $this->userID;
         $_SESSION['isLoggedIn'] = true;
         $this->username = $username;
@@ -69,10 +67,8 @@ class Session{
         unset($_SESSION['password']);
         unset($_SESSION['userID']);
         unset($_SESSION['isLoggedIn']);
-        unset($_SESSION['user_email']);
         unset($this->username);
         unset($this->userID);
-        unset($this->user_email);
         unset($this->password);
         unset($this->isLoggedIn);
     }
@@ -81,7 +77,6 @@ class Session{
         if(isset($_SESSION['username']) && isset($_SESSION['isLoggedIn'])){
             $this->username = $_SESSION['username'];
             $this->password = $_SESSION['password'];
-            $this->user_email = $_SESSION['user_email'];
             $this->userID = $_SESSION['userID'];
             $this->isLoggedIn = true;
         } else {
@@ -89,7 +84,6 @@ class Session{
             unset($this->password);
             unset($this->userID);
             unset($this->isLoggedIn);
-            unset($this->user_email);
         }
     }
 }
