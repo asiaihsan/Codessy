@@ -42,10 +42,28 @@ class Database {
             if($check->rowCount() > 0) {
                 return false;
             }
-            
+
+            // Insert new user
             $sql = "INSERT INTO users (user_name, user_password, user_email, created_at) VALUES (?, ?, ?, NOW())";
             $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute([$username, $password, $email]);
+            if ($stmt->execute([$username, $password, $email])) {
+                // Get the new user
+                $user = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
+                $user->execute([$username]);
+                if ($user->rowCount() > 0) {
+                    $userData = $user->fetch(PDO::FETCH_ASSOC);
+                    $this->userID = $userData['id'];
+                    $this->user_email = $userData['user_email'];
+                    // Start session and set session variables
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    $_SESSION['user_id'] = $this->userID;
+                    $_SESSION['user_email'] = $this->user_email;
+                    return true;
+                }
+            }
+            return false;
         } catch(PDOException $e) {
             return false;
         }

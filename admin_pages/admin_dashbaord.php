@@ -7,7 +7,3 @@ require_once '../config.php';
   echo $_SESSION['adminID'];
 ?>
 
-
-
-aghalghal
-<a href="create_lecture.php">Home</a>

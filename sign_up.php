@@ -2,12 +2,6 @@
 require_once 'config.php';
 
 
-// If user is already logged in, redirect to index.html
-if ($session->isLoggedIn) {
-    header("Location: ../index.html");
-    exit();
-}
-
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -24,7 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Password must be at least 6 characters long.";
     } else {
         if ($pdo->signUp($username, $password, $email)) {
-            $session->login($username);
+            $session->userID = $pdo->userID;
+            $session->user_email = $pdo->user_email;
+            $session->login($username, $password);
             header("Location: lectures.php");
             exit();
         } else {

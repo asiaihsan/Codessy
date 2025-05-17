@@ -1,22 +1,40 @@
 <?php
 require_once 'config.php';
-require_once 'nav.php';
 
-if(isset($_POST['update_profile'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    if (empty($username) || empty($email) || empty($password)) {
+        echo '<div class="alert alert-danger">All fields are required!</div>';
+        
+    }else{
 
-    $edit->updateProfile($session->user_id, $username, $email, $password);
-    if($edit) {
-        echo "Profile updated successfully.";
+    $stmt = $pdo->query("UPDATE users SET user_name = '$username', user_email = '$email', user_password = '$password' WHERE id = '$session->userID'");
+    if($stmt) {
+       header("Location: profile.php");
+       exit();
     } else {
-        echo "Failed to update profile.";
+        echo '<div class="alert alert-danger">Error updating profile!</div>';
+       
+    }
+
+    // Update user profile in the database
+
     }
 }
 
-?>
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile'])) {
+    $stmt = $pdo->query("DELETE FROM users WHERE id = '$session->userID'");
+    if($stmt) {
+        header("Location: login.php");
+        exit();
+    } else {
+        echo '<div class="alert alert-danger">Error deleting profile!</div>';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,23 +43,33 @@ if(isset($_POST['update_profile'])) {
     <title>Document</title>
 </head>
 <body>
+  
 
-<h1><?php echo htmlspecialchars($session->username); ?>'s Profile</h1>
-<p>Username: <?php echo htmlspecialchars($session->userID); ?></p>
+    <p>Welcome to your profile page!</p>
+    <form action="profile.php" method="POST">
+        <?php
+        $stmt = $pdo->query("SELECT * FROM users WHERE id = '$session->userID'");
+       foreach ($stmt as $row) {?>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($row['user_name']); ?>">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($row['user_email']); ?>">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($row['user_password']); ?>">
+        </div>
+        <?php } ?>
+        <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+    </form>
 
-<p>Welcome to your profile page!</p>
-<form action="profile_edit.php" method="POST">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($session->username); ?>">
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($session->user_email); ?>">
-    </div>
-    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
-</form>
 
+    <form action="profile.php" method="POST">
+        <button type="submit" name="delete_profile" class="btn btn-danger">Delete Profile</button>
+    </form>
 
 </body>
 </html>

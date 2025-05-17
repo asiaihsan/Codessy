@@ -58,6 +58,7 @@ $_GET['language_id'] = 1;
           <i class="bi bi-person"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+          <li><a href=""><?php echo htmlspecialchars($session->userID); ?></a></li>
           <li><a class="dropdown-item" href="profile.php">Profile</a></li>
           <li><a class="dropdown-item" href="#">Dashboard</a></li>
           <li><a class="dropdown-item" href="#">Bookmarks</a></li>
