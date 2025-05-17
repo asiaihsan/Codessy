@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if ($pdo->signUp($username, $password, $email)) {
             $session->userID = $pdo->userID;
-            $session->user_email = $pdo->user_email;
             $session->login($username, $password);
             header("Location: index.php");
             exit();
