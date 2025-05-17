@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $session->userID = $pdo->userID;
             $session->user_email = $pdo->user_email;
             $session->login($username, $password);
-            header("Location: lectures.php");
+            header("Location: index.php");
             exit();
         } else {
             $error = "Sign up failed. Username or email might already exist.";

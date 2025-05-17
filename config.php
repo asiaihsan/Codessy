@@ -110,7 +110,17 @@ $pdo = new Database();
 if(isset($_GET['logout'])) {
     session_start();
     session_destroy();
+    $session->logout();
     header("Location:login.php");
+    exit();
+}
+
+
+if(isset($_GET['admin_logout'])) {
+    session_start();
+    session_destroy();
+    $session->adminLogout();
+    header("Location:ad123min_login.php");
     exit();
 }
 ?>

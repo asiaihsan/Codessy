@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $session->user_email = $pdo->user_email;
             $session->login($username, $password);
             
-            header("Location: lectures.php");
+            header("Location: index.php");
             exit();
         } else {
             $error = "Invalid username or password.";

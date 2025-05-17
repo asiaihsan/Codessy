@@ -3,6 +3,8 @@
 require_once 'nav.php';
 require_once 'config.php';
 
+
+
 $id = $_GET['language_id'] ;
 echo "language_id: " . htmlspecialchars($id) . "<br>";
 $lecture_id = isset($_GET['lecture_id']);
@@ -12,6 +14,9 @@ if (!isset($lecture_id)) {
     $lecture_id = isset($_GET['lecture_id']);
 }
 echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,9 +60,32 @@ if (!isset($_GET['lecture_id'])) {
   $sql="SELECT id FROM lectures WHERE language_id = " . intval($id) . " LIMIT 1";
   $result = $pdo->query($sql);
   $lecture_id = $result->fetchColumn(); // Get the first lecture ID
-}else{
-$lecture_id = $_GET['lecture_id'] ;
+} else {
+  $lecture_id = $_GET['lecture_id'];
 }
+
+// Check if user is logged in and handle lecture completion
+if (isset($_SESSION['userID'])) {
+    $userID = $_SESSION['userID'];
+    
+    // First check if the lecture is already completed
+    $check_sql = "SELECT * FROM completed_lectures WHERE user_id = " . intval($userID) . " AND lecture_id = " . intval($lecture_id);
+    $check_result = $pdo->query($check_sql);
+    
+    if (!$check_result->fetch()) {
+        // If not completed, insert the completion
+        $insert_sql = "INSERT INTO completed_lectures (user_id, language_id, lecture_id, created_at) 
+                      VALUES (" . intval($userID) . ", " . intval($id) . ", " . intval($lecture_id) . ", NOW())";
+        if ($pdo->query($insert_sql)) {
+            $_SESSION['message'] = '<div class="alert alert-success">Lecture completed successfully!</div>';
+        } else {
+            $_SESSION['message'] = '<div class="alert alert-danger">Error saving your progress.</div>';
+        }
+    }
+} else {
+    $_SESSION['message'] = '<div class="alert alert-warning">Please log in to save your progress.</div>';
+}
+
 // Validate and sanitize the input
 echo "language_id: " . htmlspecialchars($id) . "<br>";
 echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
@@ -77,8 +105,6 @@ echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
                 <pre><code><?php echo htmlspecialchars($row['lecture_code']); ?></code></pre>
             </div>
         <?php } ?>
-     
-       
         <div class="button">
             <a href="run.php?language_id=<?php echo htmlspecialchars($id); ?>&lecture_id=<?php echo htmlspecialchars($lecture_id); ?>" class="btn btn-primary">Try it Yourself</a>
         </div>

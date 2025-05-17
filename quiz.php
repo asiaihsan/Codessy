@@ -32,10 +32,28 @@ if(isset($_POST['submit'])) {
         $correctAnswer = trim($row['quiz_answer']);
         
         if ($userAnswer === $correctAnswer) {
-            $_SESSION['message'] = '<div class="alert alert-success">Correct answer! Well done!</div>';
-        } else {
-            $_SESSION['message'] = '<div class="alert alert-danger">Incorrect answer. The correct answer was: ' . htmlspecialchars($row['quiz_answer']) . '</div>';
-        }
+
+            $sql = "SELECT * FROM completed_quizzes WHERE user_id = '" . $session->userID . "' AND quiz_id = '" . $current_quiz_id . "'";
+            $result = $pdo->query($sql);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            if ($row) {
+                $_SESSION['message'] = '<div class="alert alert-danger">You have already completed this quiz.</div>';
+                header("Location: quiz.php?quiz_id=" . $current_quiz_id . "&language_id=" . $id);
+                exit();
+            }
+            // Insert the completed quiz into the database
+
+            $sql = "INSERT INTO completed_quizzes (user_id, quiz_id,user_answer,created_at) VALUES ('$session->userID','" . $current_quiz_id . "','$userAnswer', NOW())";
+            $pdo->query($sql);
+            if($pdo->query($sql)) {
+                $_SESSION['message'] = '<div class="alert alert-success">Correct answer! Well done!</div>';
+                header("Location: quiz.php?quiz_id=" . $current_quiz_id . "&language_id=" . $id);
+                exit();
+            } else {
+                $_SESSION['message'] = '<div class="alert alert-danger">Error saving your answer.</div>';
+            }
+           
+        } 
         // Redirect back to the same quiz
         header("Location: quiz.php?quiz_id=" . $current_quiz_id . "&language_id=" . $id);
         exit();
