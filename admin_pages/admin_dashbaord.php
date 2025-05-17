@@ -1,5 +1,9 @@
 <?php
 require_once '../config.php';
+if (!$session->isAdminLoggedIn()) {
+    header("Location: ad123min_login.php");
+    exit();
+}
 
  echo $_SESSION['admin_name'];
    echo  $_SESSION['admin_password'] ;
@@ -13,12 +17,18 @@ require_once '../config.php';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <title>Document</title>
 </head>
 <body>
   <h1>Admin Dashboard</h1>
   <p>Welcome, <?php echo htmlspecialchars($_SESSION['admin_name']); ?>!</p>
   <p>Your ID: <?php echo htmlspecialchars($_SESSION['adminID']); ?></p>
+  <p><a href="create_quiz.php">Create Quiz</a></p>
+  <p><a href="create_lecture.php">Create Lecture</a></p>
   <p><a href="?admin_logout">Logout</a></p>
 
 
@@ -55,6 +65,10 @@ require_once '../config.php';
 $sql = "SELECT 
             quizzes.id AS quiz_id,
             quizzes.quiz_title,
+            quizzes.quiz_content,
+            quizzes.quiz_code,
+            quizzes.quiz_answer,
+            quizzes.created_at,
             GROUP_CONCAT(users.user_name) as completed_by
         FROM quizzes
         LEFT JOIN completed_quizzes ON quizzes.id = completed_quizzes.quiz_id
@@ -66,11 +80,15 @@ $stmt = $pdo->query($sql);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h2>Quizzes Created by You</h2>
+<h2>Quizzes Created by You (<?php echo count($result); ?>)</h2>
 
 <?php foreach ($result as $row): ?>
     <div style='margin-bottom: 15px;'>
         <h3><?php echo htmlspecialchars($row['quiz_title']); ?></h3>
+        <p><?php echo htmlspecialchars($row['quiz_content']); ?></p>
+        <p><?php echo htmlspecialchars($row['quiz_code']); ?></p>
+        <p><?php echo htmlspecialchars($row['quiz_answer']); ?></p>
+        <p><?php echo htmlspecialchars($row['created_at']); ?></p>
         <?php if (!empty($row['completed_by'])): ?>
             <span>Completed by: <?php echo htmlspecialchars($row['completed_by']); ?></span>
         <?php endif; ?>
@@ -81,6 +99,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $sql = "SELECT 
             lectures.id AS lecture_id,
             lectures.lecture_title,
+            lectures.lecture_code,
+            lectures.created_at,
             GROUP_CONCAT(users.user_name) as completed_by
         FROM lectures
         LEFT JOIN completed_lectures ON lectures.id = completed_lectures.lecture_id
@@ -92,11 +112,13 @@ $stmt = $pdo->query($sql);
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<h2>Lectures Created by You</h2>
+<h2>Lectures Created by You (<?php echo count($result); ?>)</h2>
 
 <?php foreach ($result as $row): ?>
     <div style='margin-bottom: 15px;'>
         <h3><?php echo htmlspecialchars($row['lecture_title']); ?></h3>
+        <p><?php echo htmlspecialchars($row['lecture_code']); ?></p>
+        <p><?php echo htmlspecialchars($row['created_at']); ?></p>
         <?php if (!empty($row['completed_by'])): ?>
             <span>Completed by: <?php echo htmlspecialchars($row['completed_by']); ?></span>
         <?php endif; ?>

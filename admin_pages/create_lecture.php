@@ -1,9 +1,8 @@
 <?php
 
 require_once '../config.php';
-
 if (!$session->isAdminLoggedIn()) {
-    header("Location: ../index.php");
+    header("Location:ad123min_login.php");
     exit();
 }
 
