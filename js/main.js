@@ -8,8 +8,4 @@ if (menuToggle && navLinks) {
     });
 }
 
-function runCode(){
-    let editor_value = document.getElementById('editor_textarea').value;
-    let output = document.getElementById('output_iframe');
-    output.contentDocument.body.innerHTML = editor_value;
-}
+document.getElementById('run_button').addEventListener('click', runCode);

@@ -48,18 +48,31 @@ foreach ($result as $row) { ?>
             
         </div>
     </div>
-    <script src="/js/main.js"></script>
+    <script src="../js/main.js"></script>
     <script>
-           let editor_value = document.getElementById('editor_textarea').value;
-    let output = document.getElementById('output_iframe');
-    output.contentDocument.body.innerHTML = editor_value;
 
-
-    function runCode() {
-        let code = document.getElementById('editor_textarea').value;
-        let output = document.getElementById('output_iframe');
-        output.contentDocument.body.innerHTML = code;
-    }
+          const code = document.getElementById('editor_textarea').value;
+    const output = document.getElementById('output_iframe');
+    
+    // Ensure iframe is ready
+    const iframeDoc = output.contentDocument || output.contentWindow.document;
+    
+    // Completely replace the document to execute scripts
+    iframeDoc.open();
+    iframeDoc.write(code);  // This executes scripts unlike innerHTML
+    iframeDoc.close();
+   function runCode() {
+    const code = document.getElementById('editor_textarea').value;
+    const output = document.getElementById('output_iframe');
+    
+    // Ensure iframe is ready
+    const iframeDoc = output.contentDocument || output.contentWindow.document;
+    
+    // Completely replace the document to execute scripts
+    iframeDoc.open();
+    iframeDoc.write(code);  // This executes scripts unlike innerHTML
+    iframeDoc.close();
+}
     </script>
 </body>
 </html>
