@@ -5,11 +5,6 @@ if (!$session->isAdminLoggedIn()) {
     exit();
 }
 
- echo $_SESSION['admin_name'];
-   echo  $_SESSION['admin_password'] ;
-  echo $pdo->adminID;
-  echo $_SESSION['adminID'];
-
 ?>
 
 <!DOCTYPE html>

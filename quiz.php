@@ -4,8 +4,7 @@ require_once 'nav.php';
 require_once 'config.php';
 
 $id = $_GET['language_id'] ;
-echo "language_id: " . htmlspecialchars($id) . "<br>";
-
+htmlspecialchars($id);
 if (!isset($quiz_id)) {
   $sql="SELECT id FROM quizzes WHERE language_id = " . intval($id) . " LIMIT 1";
   $result = $pdo->query($sql);
@@ -13,7 +12,7 @@ if (!isset($quiz_id)) {
 }else{
 $quiz_id = $_GET['quiz_id'] ;
 }
-echo "quiz_id: " . htmlspecialchars($quiz_id) . "<br>";
+
 
 
 

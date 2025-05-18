@@ -2,7 +2,7 @@
 require_once 'config.php';
 
 if(isset($_GET['language_id'])) {
-    echo "language_id: " . htmlspecialchars($_GET['language_id']) . "<br>";
+  htmlspecialchars($_GET['language_id']);
 } else{
 $_GET['language_id'] = 1;
 }

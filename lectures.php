@@ -6,14 +6,13 @@ require_once 'config.php';
 
 
 $id = $_GET['language_id'] ;
-echo "language_id: " . htmlspecialchars($id) . "<br>";
+
 $lecture_id = isset($_GET['lecture_id']);
 if (!isset($lecture_id)) {
     $lecture_id = 1; // Default value if not set
 } else {
     $lecture_id = isset($_GET['lecture_id']);
 }
-echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
 
 
 
@@ -86,9 +85,6 @@ if (isset($_SESSION['userID'])) {
     $_SESSION['message'] = '<div class="alert alert-warning">Please log in to save your progress.</div>';
 }
 
-// Validate and sanitize the input
-echo "language_id: " . htmlspecialchars($id) . "<br>";
-echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
 ?>
 
 

@@ -74,8 +74,3 @@ if (isset($_SESSION['error'])) {
 </body>
 </html>
 
-
-
-<?php
-echo $session->adminID;
-?>
