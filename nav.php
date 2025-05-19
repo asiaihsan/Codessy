@@ -40,7 +40,7 @@ if (isset($_GET['language_id'])) {
                         </li>
                     <?php } ?>
                     <li class="nav-item nav-item-php">
-                        <a class="nav-link nav-link-php special-link quiz" href="quiz.php?language_id=<?php echo htmlspecialchars($row['id']); ?>">Quizzes</a>
+                        <a class="nav-link nav-link-php special-link quiz" href="quiz.php">Quizzes</a>
                     </li>
                 </ul>
                 <?php

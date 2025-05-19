@@ -52,7 +52,9 @@ if(isset($_POST['submit'])) {
                 $_SESSION['message'] = '<div class="alert alert-danger">Error saving your answer.</div>';
             }
            
-        } 
+        }else {
+            $_SESSION['message'] = '<div class="alert alert-danger">Incorrect answer. Please try again.</div>';
+        }
         // Redirect back to the same quiz
         header("Location: quiz.php?quiz_id=" . $current_quiz_id . "&language_id=" . $id);
         exit();
@@ -119,91 +121,97 @@ if ($current_quiz_id) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/quiz.css">
+    <title>Quiz - Codessy</title>
 </head>
-<body>
-   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <?php
-    $result = $pdo->query("SELECT * FROM programing_language");
-    foreach ($result as $row) { ?>
-        <a class="navbar-brand" href="quiz.php?language_id=<?php echo htmlspecialchars($row['id']); ?>"><?php echo htmlspecialchars($row['language_name']); ?> quiz</a>
-    <?php } ?>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <?php
-          $sql = "SELECT * FROM quizzes WHERE language_id = " . intval($id);
-          if ($lecture_id) {
-              $sql .= " AND lecture_id = " . intval($lecture_id);
-          }
-          $result = $pdo->query($sql);
-          foreach ($result as $row) { ?>
-            <a class="nav-link active" aria-current="page" href="quiz.php?language_id=<?php echo htmlspecialchars($id); ?>&quiz_id=<?php echo htmlspecialchars($row['id']); ?><?php echo $lecture_id ? '&lecture_id=' . htmlspecialchars($lecture_id) : ''; ?>"><?php echo htmlspecialchars($row['quiz_title']); ?></a>
-          <?php } ?>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<?php
-
-$id = $_GET['language_id'] ;
-$quiz_id = 0;
-if (!isset($_GET['quiz_id'])) {
-  $sql="SELECT id FROM quizzes WHERE language_id = " . intval($id) . " LIMIT 1";
-  $result = $pdo->query($sql);
-  $quiz_id = $result->fetchColumn(); // Get the first quiz ID
-  $row = $result->fetch(PDO::FETCH_ASSOC);
-  if ($row) {
-    $quiz_id = $row['id'];
-  }
-}else{
-  $quiz_id = $_GET['quiz_id'] ;
-}
-
-
-
-?>
-
-
-<div class="container">
-  <h1>Welcome to the Tutorials</h1>
-    <div class="left">
-        <div>
-            <label for="">Example</label>
+<body class="body-quiz">
+    <nav class="custom-quiz-nav">
+        <div class="nav-container">
+            <ul class="quiz-languages">
+                <?php
+                $result = $pdo->query("SELECT * FROM programing_language");
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $isActive = $row['id'] == $id;
+                    $activeClass = $isActive ? 'active' : '';
+                    ?>
+                    <li class="language-item <?php echo $activeClass; ?>">
+                        <a href="quiz.php?language_id=<?php echo $row['id']; ?>">
+                            <span class="language-icon">
+                                <i class="<?php echo strtolower(str_replace(' ', '-', $row['language_name'])); ?>-icon"></i>
+                            </span>
+                            <span class="language-name"><?php echo $row['language_name']; ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
+    </nav>
+
     <?php
-    if ($current_quiz) {
-        $lecture_id = $current_quiz['lecture_id'];
-        $language_id = $current_quiz['language_id'];
-        $quiz_title = $current_quiz['quiz_title'];
-        $quiz_content = $current_quiz['quiz_content'];
-        $quiz_code = $current_quiz['quiz_code'];
-    ?>
-        <h3><?php echo htmlspecialchars($quiz_title); ?></h3>
-        <p><?php echo htmlspecialchars($quiz_content); ?></p>
-        <p><?php echo htmlspecialchars($quiz_code); ?></p>
-        <form action="quiz.php?quiz_id=<?php echo $current_quiz_id; ?>&language_id=<?php echo $id; ?>" method="post">
-            <input type="text" name="answer" id="answer" placeholder="Enter your answer">
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-        </form>
 
-       <form action="quiz.php" method="get">
-            <input type="hidden" name="language_id" value="<?php echo $id; ?>">
-            <input type="hidden" name="quiz_id" value="<?php echo $current_quiz_id; ?>">
-            <button type="submit" name="next" class="btn btn-primary">Next</button> 
-        </form>
-        <?php
-       
-    } else {
-        echo "No quiz found for this language.";
+    $id = $_GET['language_id'] ;
+    $quiz_id = 0;
+    if (!isset($_GET['quiz_id'])) {
+      $sql="SELECT id FROM quizzes WHERE language_id = " . intval($id) . " LIMIT 1";
+      $result = $pdo->query($sql);
+      $quiz_id = $result->fetchColumn(); // Get the first quiz ID
+      $row = $result->fetch(PDO::FETCH_ASSOC);
+      if ($row) {
+        $quiz_id = $row['id'];
+      }
+    }else{
+      $quiz_id = $_GET['quiz_id'] ;
     }
-    ?>
-    </div>
-</div>
 
+
+
+    ?>
+
+
+    <div class="container-quiz">
+        <h1 class="quiz-title">Welcome to the Tutorials</h1>
+        <div class="quiz-content">
+            <div class="quiz-example">
+                <div class="example-header">
+                    <label class="example-label">Example</label>
+                </div>
+                <?php
+                if ($current_quiz) {
+                    $lecture_id = $current_quiz['lecture_id'];
+                    $language_id = $current_quiz['language_id'];
+                    $quiz_title = $current_quiz['quiz_title'];
+                    $quiz_content = $current_quiz['quiz_content'];
+                    $quiz_code = $current_quiz['quiz_code'];
+                ?>
+                    <h3><?php echo htmlspecialchars($quiz_title); ?></h3>
+                    <div class="quiz-description">
+                        <p><?php echo htmlspecialchars($quiz_content); ?></p>
+                    </div>
+                    <div class="quiz-code">
+                        <pre><code><?php echo htmlspecialchars($quiz_code); ?></code></pre>
+                    </div>
+                    <form class="quiz-form" action="quiz.php?quiz_id=<?php echo $current_quiz_id; ?>&language_id=<?php echo $id; ?>" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control quiz-input" name="answer" id="answer" placeholder="Enter your answer">
+                        </div>
+                        <div class="quiz-buttons">
+                            <button type="submit" name="submit" class="btn-quiz btn-submit">Submit</button>
+                        </div>
+                    </form>
+
+                    <form class="quiz-nav-form" action="quiz.php" method="get">
+                        <input type="hidden" name="language_id" value="<?php echo $id; ?>">
+                        <input type="hidden" name="quiz_id" value="<?php echo $current_quiz_id; ?>">
+                        <button type="submit" name="next" class="btn-quiz btn-next">Next</button>
+                    </form>
+                    <?php
+                    } else {
+                        echo "<p class='no-quiz'>No quiz found for this language.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
