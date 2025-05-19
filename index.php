@@ -123,32 +123,68 @@ require_once 'nav.php';
                     <h3>HTML Essentials</h3>
                     <p>Start your coding journey here. Learn to structure web content with the internet's fundamental language. Build your first pages and establish core web concepts.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
-                    <span class="course-meta">81 Lessons · 6h</span>
+                   
                 </div>
                 <div class="course-card">
                     <img src="assest/csssbg.jpg" alt="CSS Course" />
                     <h3>CSS Styling Secrets</h3>
                     <p>Style what you build. Transform basic pages into beautiful, modern websites with advanced styling techniques and responsive layouts.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
-                    <span class="course-meta">81 Lessons · 8h</span>
+                   
                 </div>
                 <div class="course-card">
                     <img src="assest/jsbg.jpg" alt="JS Course" />
                     <h3>JavaScript Dynamics</h3>
                     <p>Add interaction and functionality. Elevate your sites from static to dynamic with programming basics that respond to user actions.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
-                    <span class="course-meta">81 Lessons · 8h</span>
+                   
                 </div>
             </div>
         </section>
         <section class="auth-section">
             <div class="auth-illustration">
-                <img src="assest/Frame 2.png" alt="Sign in or Sign up" />
+                <img src="assest/Frame 2.png" alt="Sign in or Sign up" class="img-fluid rounded-3">
             </div>
             <div class="auth-content">
-                <h2>Join Our Community</h2>
+                <h2 class="mb-4">Join Our Community</h2>
+                <p class="mb-4">Connect with fellow learners and experienced developers in our vibrant community. Share your progress, ask questions, and collaborate on projects.</p>
+                <a href="sign_up.php" class="btn-secondary me-3">Sign Up</a>
+                <p class="mb-0">Already have an account? <a href="login.php" class="text-decoration-none">Log in</a></p>
             </div>
         </section>
+
+        <footer class="bg-white rounded-4 py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="mb-4">Codessy</h4>
+                        <p>Learn web development with interactive courses and a supportive community of fellow learners.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="mb-4">Quick Links</h4>
+                        <nav>
+                            <a href="index.php" class="d-block mb-2 text-decoration-none">Home</a>
+                            <a href="courses.php" class="d-block mb-2 text-decoration-none">Courses</a>
+                            <a href="lectures.php" class="d-block mb-2 text-decoration-none">Lectures</a>
+                            <a href="quiz.php" class="d-block mb-2 text-decoration-none">Quizzes</a>
+                            <a href="profile.php" class="d-block text-decoration-none">Profile</a>
+                        </nav>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="mb-4">Contact Us</h4>
+                        <p>Email: support@codessy.com</p>
+                        <p>Phone: +1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <hr class="mt-4 mb-4">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p class="mb-0">&copy; <?php echo date('Y'); ?> Codessy. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </main>
     <script src="js/main.js"></script>
 </body>

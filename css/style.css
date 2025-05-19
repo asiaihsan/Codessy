@@ -24,7 +24,7 @@ header {
 main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 1rem 4rem 1rem; /* Increased top padding */
+    padding: 3rem 1rem; /* Reduced padding */
 }
 
 .hero {
@@ -229,93 +229,265 @@ main {
     gap: 1.5rem;
 }
 .course-card {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    padding: 1.2rem 1rem 1.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-height: 320px;
-    transition: box-shadow 0.32s cubic-bezier(.22,1.61,.36,1), border-color 0.32s cubic-bezier(.22,1.61,.36,1), transform 0.32s cubic-bezier(.22,1.61,.36,1);
-}
-.course-card img {
-    width: 100%;
-    max-width: 120px;
-    margin-bottom: 0.8rem;
-    border-radius: 8px;
-    background: #e6e6e6;
-    align-self: center;
-}
-.course-card h3 {
-    margin: 0.2rem 0 0.5rem 0;
-    font-size: 1.1rem;
-}
-.course-card p {
-    font-size: 0.98rem;
-    color: #444;
-    margin-bottom: 1rem;
-}
-.course-meta {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 0.5rem;
-}
-
-.exercises {
-    margin-bottom: 3rem;
-}
-.exercises h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-.exercises-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem;
-}
-.exercise-card {
-    background: #fffbe6;
-    border-radius: 12px;
-    padding: 1.2rem 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1.5px 6px rgba(0,0,0,0.03);
+    border: 1.33px solid #BED35A;
     text-align: center;
-    min-height: 140px;
+    transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: box-shadow 0.32s cubic-bezier(.22,1.61,.36,1), border-color 0.32s cubic-bezier(.22,1.61,.36,1), transform 0.32s cubic-bezier(.22,1.61,.36,1);
-}
-.exercise-card.html { background: #fffbe6; }
-.exercise-card.css { background: #ffe6f6; }
-.exercise-card.js { background: #e6f0ff; }
-.exercise-card h3 {
-    margin: 0.2rem 0 0.5rem 0;
-    font-size: 1.1rem;
-}
-.exercise-card p {
-    font-size: 0.98rem;
-    color: #444;
-    margin-bottom: 1rem;
 }
 
+.course-card:hover {
+    transform: translateY(-5px);
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.course-card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.course-card p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.course-card .btn-secondary {
+    margin-top: auto;
+}
+
+/* Auth Section Styles */
 .auth-section {
+    background:none; /* White background */
+    padding: 3rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    margin: 2rem 0;
     display: flex;
     align-items: center;
     gap: 2rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
 }
+
+.auth-illustration {
+    flex: 1; /* Take up available space */
+    max-width: 50%; /* Adjust as needed */
+    margin: 0; /* Reset margin */
+    padding-left: 2rem; /* Add some padding on the left */
+}
+
 .auth-illustration img {
-    width: 220px;
+    width: 100%;
     max-width: 100%;
-    border-radius: 12px;
-    background: #e6e6e6;
-    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    object-fit: cover; /* Ensure image fills container */
 }
+
+.auth-content {
+    flex: 1; /* Take up available space */
+    max-width: 50%; /* Adjust as needed */
+    margin: 0; /* Reset margin */
+    padding: 0 2rem; /* Add padding to the content area */
+}
+
 .auth-content h2 {
     font-size: 2rem;
-    margin: 0;
+    color: #181818;
+    margin-bottom: 1rem;
+    text-align: left; /* Align text to the left */
+}
+
+.auth-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+    margin-bottom: 1rem;
+    text-align: left; /* Align text to the left */
+}
+
+.auth-content .btn-secondary {
+    width: auto;
+    max-width: 180px;
+    margin: 0 0 1rem 0; /* Align to the left */
+    display: inline-block; /* Keep it inline */
+}
+
+.auth-content a {
+    color: var(--colorShadeB);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-content a:hover {
+    color: var(--colorShadeA);
+}
+
+/* Footer Styles - New Revamp */
+footer {
+    color: #555; /* Dark gray text */
+    padding: 4rem 0;
+    margin-top: 5rem;
+    border-top: 1px solid #e6e6e6; /* Light gray border */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04); /* Subtle shadow */
+}
+
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 2rem;
+}
+
+footer h4 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+footer p {
+    margin-bottom: 1rem;
+    color: #777;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 0.7rem;
+}
+
+footer ul li a {
+    color: #777;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+footer ul li a:hover {
+    color: var(--colorShadeB);
+}
+
+/* Social Media Icons */
+footer .social-links a {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 1.3rem;
+    color: #777;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+    color: var(--colorShadeB);
+}
+
+footer hr {
+    border-top: 1px solid #f2f2f2;
+    margin: 2rem 0;
+}
+
+footer .footer-bottom {
+    text-align: center;
+    color: #777;
+    font-size: 0.85rem;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    footer {
+        padding: 3rem 0;
+    }
+
+    footer .footer-content {
+        flex-direction: column;
+    }
+
+    footer .footer-section {
+        min-width: auto;
+    }
+}
+
+/* General adjustments for other sections (example) */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem; /* Reduced padding */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .auth-section {
+        flex-direction: column; /* Stack on smaller screens */
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .auth-illustration {
+        max-width: 80%; /* Adjust image width */
+        margin: 0 auto 1.5rem;
+        padding-left: 0; /* Remove left padding */
+    }
+
+    .auth-content {
+        max-width: 80%; /* Adjust content width */
+        padding: 0 1rem;
+    }
+
+    .auth-content h2,
+    .auth-content p {
+        text-align: center; /* Center text */
+    }
+
+    .auth-content .btn-secondary {
+        margin: 0 auto 1rem; /* Center button */
+        display: block; /* Make button full width */
+    }
+
+    footer {
+        padding: 2rem 1rem 1rem;
+    }
+
+    footer .row {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .auth-content h2 {
+        font-size: 1.75rem;
+    }
+    
+    footer h4 {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 900px) {
@@ -469,40 +641,7 @@ main {
     vertical-align: middle;
 }
 
-/* Creative nav hover effect */
-.nav-links li a {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-.nav-links li a:before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    border: 2px solid #d2e07a;
-    border-radius: 6px;
-    transform: scaleX(0) scaleY(0);
-    transition: transform 0.32s cubic-bezier(.22,1.61,.36,1);
-    z-index: 2;
-    pointer-events: none;
-}
-.nav-links li a:hover:before {
-    transform: scaleX(1) scaleY(1);
-}
-.nav-links li a:after {
-    content: '';
-    position: absolute;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: #d2e07a;
-    opacity: 0;
-    z-index: 1;
-    transition: opacity 0.32s cubic-bezier(.22,1.61,.36,1);
-}
-.nav-links li a:hover:after {
-    opacity: 0.18;
-}
+
 
 .cube-effect-container {
     width: 90px;
