@@ -1,1 +1,178 @@
+/* Main container styles */
+.body-lecture {
+    margin: 0;
+    padding: 80px 0 0 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f8f4e6;
+    color: #181818;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+}
 
+/* Tutorial navigation styles */
+.nav-tutorial {
+    position: fixed;
+    left: 0;
+    top: 80px;
+    bottom: 0;
+    width: 280px;
+    background: #fff !important;
+    padding: 1.5rem;
+    overflow-y: auto;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-tutorial .navbar-brand-lecture {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: 3px solid #d2e07a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-tutorial .navbar-nav-lecture {
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-tutorial .nav-item-lecture {
+    width: 100%;
+    margin: 0.4rem 0;
+}
+
+.nav-tutorial .nav-link-lecture {
+    color: #4a5568;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.nav-tutorial .nav-link-lecture:hover {
+    background: rgba(210, 224, 122, 0.1);
+    color: #2c3e50;
+    border-left: 3px solid #d2e07a;
+    padding-left: 1.2rem;
+}
+
+
+/* Main content area */
+.container-lecture {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+    max-width: calc(100% - 280px);
+}
+
+.container-lecture h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #181818;
+}
+
+/* Example section */
+.example-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.example-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #181818;
+}
+
+.example {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.example pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.example code {
+    color: #333;
+}
+
+/* Button styles */
+.button-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-lecture {
+    background: #d2e07a;
+    color: #181818;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-lecture:hover {
+    background: #b6c95a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .nav-tutorial {
+        width: 240px;
+    }
+    
+    .container-lecture {
+        margin-left: 240px;
+        max-width: calc(100% - 240px);
+    }
+}
+
+@media (max-width: 768px) {
+    .body-lecture {
+        flex-direction: column;
+    }
+    
+    .nav-tutorial {
+        position: relative;
+        width: 100%;
+        top: 0;
+        margin-bottom: 2rem;
+    }
+    
+    .container-lecture {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 1rem;
+    }
+}

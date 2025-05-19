@@ -26,31 +26,28 @@ if (!isset($lecture_id)) {
     <link rel="stylesheet" href="css/lectures.css">
     <title>Document</title>
 </head>
-<body>
-   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
+<body class="body-lecture">
+   <nav class="nav-tutorial">
+  <div class="navbar-brand-lecture">
     <?php
     $result = $pdo->query("SELECT * FROM programing_language WHERE id = " . intval($id));
-    foreach ($result as $row) { ?>
-        <label class="navbar-brand" ><?php echo htmlspecialchars($row['language_name']); ?> Tutorial</label>
-    <?php } ?>
-  
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <?php
-          $result = $pdo->query("SELECT * FROM  lectures WHERE language_id = " . intval($id));
-          foreach ($result as $row) { ?>
-            <a class="nav-link active" aria-current="page" href="lectures.php?lecture_id=<?php echo htmlspecialchars($row['id']); ?>&language_id=<?php echo htmlspecialchars($id); ?>"><?php echo htmlspecialchars($row['lecture_title']); ?></a>
-          <?php } ?>
-          
-        </li>
-      </ul>
-    </div>
+    foreach ($result as $row) {
+        echo htmlspecialchars($row['language_name']) . " Tutorial";
+    }
+    ?>
   </div>
+  <ul class="navbar-nav-lecture">
+    <?php
+    $result = $pdo->query("SELECT * FROM lectures WHERE language_id = " . intval($id));
+    foreach ($result as $row) {
+        $isActive = (isset($lecture_id) && $lecture_id == $row['id']) ? 'active' : '';
+        echo '<li class="nav-item-lecture">';
+        echo '<a class="nav-link-lecture ' . $isActive . '" href="lectures.php?lecture_id=' . htmlspecialchars($row['id']) . '&language_id=' . htmlspecialchars($id) . '">';
+        echo htmlspecialchars($row['lecture_title']);
+        echo '</a></li>';
+    }
+    ?>
+  </ul>
 </nav>
 
 <?php
@@ -90,11 +87,11 @@ if (isset($_SESSION['userID'])) {
 ?>
 
 
-<div class="container">
-  <h1>Welcome to the  Tutorials</h1>
-    <div class="left">
-        <div>
-            <label for="">Example</label>
+<div class="container-lecture">
+  <h1>Welcome to the Tutorials</h1>
+    <div class="example-container">
+        <div class="example-label">
+            <label>Example</label>
         </div>
         <?php
         $result = $pdo->query("SELECT lecture_code FROM lectures JOIN programing_language ON lectures.language_id = programing_language.id WHERE lectures.id = " . intval($lecture_id) . " AND programing_language.id = " . intval($id));
@@ -103,11 +100,9 @@ if (isset($_SESSION['userID'])) {
                 <pre><code><?php echo htmlspecialchars($row['lecture_code']); ?></code></pre>
             </div>
         <?php } ?>
-        <div class="button">
-            <a href="run.php?language_id=<?php echo htmlspecialchars($id); ?>&lecture_id=<?php echo htmlspecialchars($lecture_id); ?>" class="btn btn-primary">Try it Yourself</a>
-        </div>
-        <div class="button">
-          <a href="quiz.php?lecture_id=<?php echo htmlspecialchars($lecture_id); ?>&language_id=<?php echo htmlspecialchars($id); ?>" class="btn btn-primary">Take Quiz</a>
+        <div class="button-container">
+            <a href="run.php?language_id=<?php echo htmlspecialchars($id); ?>&lecture_id=<?php echo htmlspecialchars($lecture_id); ?>" class="btn-lecture">Try it Yourself</a>
+            <a href="quiz.php?lecture_id=<?php echo htmlspecialchars($lecture_id); ?>&language_id=<?php echo htmlspecialchars($id); ?>" class="btn-lecture">Take Quiz</a>
         </div>
     </div>
 </div>
