@@ -22,6 +22,8 @@ if (!isset($lecture_id)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/lectures.css">
     <title>Document</title>
 </head>
 <body>
