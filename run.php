@@ -5,8 +5,6 @@
 require_once 'config.php';
 $id = $_GET['language_id'] ;
 $lecture_id = $_GET['lecture_id'] ;
-echo "language_id: " . htmlspecialchars($id) . "<br>";
-echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +15,11 @@ echo "lecture_id: " . htmlspecialchars($lecture_id) . "<br>";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/run.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="left">
             <div class="text_run">
                 <label for="">Code Editor</label>
