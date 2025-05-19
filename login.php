@@ -1,8 +1,6 @@
 <?php
 require_once 'config.php';
 
-
-
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,20 +29,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Codessy</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
-<body>
-    <h1>Login</h1>
-    <?php if (!empty($error)) echo "<p>$error</p>"; ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <input type="submit" value="Login">
-    </form>
-    <p>Don't have an account? <a href="sign_up.php">Sign up</a></p>
+<body class="body-login">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Login to Codessy</h1>
+        </div>
+        
+        <?php if (!empty($error)): ?>
+            <div class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+
+        <form class="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <div class="login-footer">
+            <p>Don't have an account? <a href="sign_up.php">Sign up</a></p>
+        </div>
+    </div>
 </body>
 </html>
