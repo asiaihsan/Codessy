@@ -162,9 +162,7 @@ if (!isset($_GET['quiz_id'])) {
 }else{
   $quiz_id = $_GET['quiz_id'] ;
 }
-// Validate and sanitize the input
-echo "language_id: " . htmlspecialchars($id) . "<br>";
-echo "quiz_id: " . htmlspecialchars($quiz_id) . "<br>";
+
 
 
 ?>
@@ -198,7 +196,7 @@ echo "quiz_id: " . htmlspecialchars($quiz_id) . "<br>";
             <button type="submit" name="next" class="btn btn-primary">Next</button> 
         </form>
         <?php
-        echo "Lecture ID: " . htmlspecialchars($lecture_id) . "<br>";
+       
     } else {
         echo "No quiz found for this language.";
     }

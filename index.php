@@ -10,26 +10,17 @@ require_once 'nav.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codessy - Learn HTML, CSS, JS</title>
+    <title>Codessy - Your Coding Companion</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">Codessy</div>
-            <ul class="nav-links">
-                <li><a href="#courses">Courses</a></li>
-                <li><a href="#exercises">Exercises</a></li>
-                <li><a href="#quizzes">Quizzes</a></li>
-                <li><a href="#get-started" class="btn-primary">Get Started</a></li>
-            </ul>
-            <button class="menu-toggle" aria-label="Open menu">☰</button>
-        </nav>
-    </header>
+   
     <main>
         <section class="hero">
             <div class="hero-content">
-                <p>Dive into HTML, CSS, and JavaScript with interactive lessons designed for beginners and intermediate coders alike. Build real projects, strengthen your skills, and launch your coding journey with confidence.</p>
+                <h1 class="mb-3">Your Path to Web Development Mastery</h1>
+                <h2>Unlock the skills to build the future, one line of code at a time.</h2>
+                <a href="#get-started" class="btn-secondary hero-btn mt-5">Begin Your Adventure</a>
             </div>
             <div class="hero-illustration">
                 <div class="container">
@@ -86,8 +77,9 @@ require_once 'nav.php';
                     </div>
                 </div>
             </div>
+            
         </section>
-        <a href="#get-started" class="btn-secondary hero-btn">Start Your Journey</a>
+        
         <section class="why-webdev">
             <h2>Why Web Development?</h2>
             <div class="reasons-grid">
@@ -124,48 +116,28 @@ require_once 'nav.php';
             </div>
         </section>
         <section class="courses" id="courses">
-            <h2>Our Courses</h2>
+            <h2>Explore Our Courses</h2>
             <div class="courses-grid">
                 <div class="course-card">
                     <img src="assest/htmlbg.jpg" alt="HTML Course" />
-                    <h3>HTML full course</h3>
+                    <h3>HTML Essentials</h3>
                     <p>Start your coding journey here. Learn to structure web content with the internet's fundamental language. Build your first pages and establish core web concepts.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
                     <span class="course-meta">81 Lessons · 6h</span>
                 </div>
                 <div class="course-card">
                     <img src="assest/csssbg.jpg" alt="CSS Course" />
-                    <h3>CSS full course</h3>
+                    <h3>CSS Styling Secrets</h3>
                     <p>Style what you build. Transform basic pages into beautiful, modern websites with advanced styling techniques and responsive layouts.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
                     <span class="course-meta">81 Lessons · 8h</span>
                 </div>
                 <div class="course-card">
                     <img src="assest/jsbg.jpg" alt="JS Course" />
-                    <h3>JS full course</h3>
+                    <h3>JavaScript Dynamics</h3>
                     <p>Add interaction and functionality. Elevate your sites from static to dynamic with programming basics that respond to user actions.</p>
                     <a href="#" class="btn-secondary">Start Learning</a>
                     <span class="course-meta">81 Lessons · 8h</span>
-                </div>
-            </div>
-        </section>
-        <section class="exercises" id="exercises">
-            <h2>Exercises</h2>
-            <div class="exercises-grid">
-                <div class="exercise-card html">
-                    <h3>Practice HTML</h3>
-                    <p>Sharpen your skills through hands-on HTML challenges and real-world examples.</p>
-                    <a href="#" class="btn-secondary">Try now</a>
-                </div>
-                <div class="exercise-card css">
-                    <h3>Practice CSS</h3>
-                    <p>Sharpen your skills through hands-on CSS challenges and real-world examples.</p>
-                    <a href="#" class="btn-secondary">Try now</a>
-                </div>
-                <div class="exercise-card js">
-                    <h3>Practice JS</h3>
-                    <p>Sharpen your skills through hands-on JavaScript challenges and real-world examples.</p>
-                    <a href="#" class="btn-secondary">Try now</a>
                 </div>
             </div>
         </section>
@@ -174,10 +146,10 @@ require_once 'nav.php';
                 <img src="assest/Frame 2.png" alt="Sign in or Sign up" />
             </div>
             <div class="auth-content">
-                <h2>Sign in or Sign up</h2>
+                <h2>Join Our Community</h2>
             </div>
         </section>
     </main>
     <script src="js/main.js"></script>
 </body>
-</html> 
+</html>
