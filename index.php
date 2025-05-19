@@ -20,7 +20,7 @@ require_once 'nav.php';
             <div class="hero-content">
                 <h1 class="mb-3">Your Path to Web Development Mastery</h1>
                 <h2>Unlock the skills to build the future, one line of code at a time.</h2>
-                <a href="#get-started" class="btn-secondary hero-btn mt-5">Begin Your Adventure</a>
+                <a href="#get-started" class=" hero-btn mt-5">Begin Your Adventure</a>
             </div>
             <div class="hero-illustration">
                 <div class="container">
@@ -122,21 +122,21 @@ require_once 'nav.php';
                     <img src="assest/htmlbg.jpg" alt="HTML Course" />
                     <h3>HTML Essentials</h3>
                     <p>Start your coding journey here. Learn to structure web content with the internet's fundamental language. Build your first pages and establish core web concepts.</p>
-                    <a href="#" class="btn-secondary">Start Learning</a>
+                    <a href="#" class="btn-secondary-index">Start Learning</a>
                    
                 </div>
                 <div class="course-card">
                     <img src="assest/csssbg.jpg" alt="CSS Course" />
                     <h3>CSS Styling Secrets</h3>
                     <p>Style what you build. Transform basic pages into beautiful, modern websites with advanced styling techniques and responsive layouts.</p>
-                    <a href="#" class="btn-secondary">Start Learning</a>
+                    <a href="#" class="btn-secondary-index">Start Learning</a>
                    
                 </div>
                 <div class="course-card">
                     <img src="assest/jsbg.jpg" alt="JS Course" />
                     <h3>JavaScript Dynamics</h3>
                     <p>Add interaction and functionality. Elevate your sites from static to dynamic with programming basics that respond to user actions.</p>
-                    <a href="#" class="btn-secondary">Start Learning</a>
+                    <a href="#" class="btn-secondary-index">Start Learning</a>
                    
                 </div>
             </div>
@@ -148,7 +148,7 @@ require_once 'nav.php';
             <div class="auth-content">
                 <h2 class="mb-4">Join Our Community</h2>
                 <p class="mb-4">Connect with fellow learners and experienced developers in our vibrant community. Share your progress, ask questions, and collaborate on projects.</p>
-                <a href="sign_up.php" class="btn-secondary me-3">Sign Up</a>
+                <a href="sign_up.php" class="btn-secondary-index me-3">Sign Up</a>
                 <p class="mb-0">Already have an account? <a href="login.php" class="text-decoration-none">Log in</a></p>
             </div>
         </section>

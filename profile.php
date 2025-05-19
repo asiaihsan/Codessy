@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'nav.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $username = $_POST['username'];
@@ -40,36 +41,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <title>Profile - Codessy</title>
 </head>
 <body>
-  
-
-    <p>Welcome to your profile page!</p>
-    <form action="profile.php" method="POST">
-        <?php
-        $stmt = $pdo->query("SELECT * FROM users WHERE id = '$session->userID'");
-       foreach ($stmt as $row) {?>
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($row['user_name']); ?>">
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Profile Settings</h1>
+            <p>Manage your account information</p>
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($row['user_email']); ?>">
+
+        <div class="profile-form">
+            <form action="profile.php" method="POST">
+                <?php
+                $stmt = $pdo->query("SELECT * FROM users WHERE id = '$session->userID'");
+                foreach ($stmt as $row) {
+                    ?>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($row['user_name']); ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($row['user_email']); ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($row['user_password']); ?>">
+                    </div>
+                    <?php 
+                }
+                ?>
+                <div class="btn-group">
+                    <button type="submit" name="update_profile" class="btn-profile btn-update">Update Profile</button>
+                    <button type="submit" name="delete_profile" class="btn-profile btn-delete">Delete Profile</button>
+                </div>
+            </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($row['user_password']); ?>">
-        </div>
-        <?php } ?>
-        <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
-    </form>
-
-
-    <form action="profile.php" method="POST">
-        <button type="submit" name="delete_profile" class="btn btn-danger">Delete Profile</button>
-    </form>
-
+    </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ if(!$session->isLoggedIn){
     <title>Document</title>
 </head>
 <body>
-    <h1>User Dashboard</h1>  
+    <h1>User Dashboard</h1>
     <p>Welcome, <?php echo htmlspecialchars($session->username); ?>!</p>
     <?php
     $sql = "SELECT lectures.lecture_title, completed_lectures.created_at AS completed_at,programing_language.language_name AS names  FROM lectures JOIN completed_lectures ON lectures.id = completed_lectures.lecture_id JOIN programing_language ON lectures.language_id = programing_language.id WHERE completed_lectures.user_id = '$session->userID' GROUP BY programing_language.language_name";

@@ -58,7 +58,7 @@ main {
     text-align: left; /* Align left */
 }
 
-.btn-secondary {
+.btn-secondary-index {
     background: #d2e07a;
     color: #181818;
     border: none;
@@ -74,7 +74,7 @@ main {
     max-width: 270px;
     text-align: center;
 }
-.btn-secondary:hover {
+.btn-secondary-index:hover {
     background: #b6c95a;
 }
 .hero-illustration {

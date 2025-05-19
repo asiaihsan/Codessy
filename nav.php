@@ -51,14 +51,14 @@ if (isset($_GET['language_id'])) {
                     </div>
                 <?php } else { ?>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle-php  dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href=""><?php echo htmlspecialchars($session->userID); ?></a></li>
-                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="user_dashboard.php">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="?logout">Logout</a></li>
+                        <ul class="dropdown-menu dropdown-menu-php dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item dropdown-item-php" href=""><?php echo htmlspecialchars($session->userID); ?></a></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="profile.php">Profile</a></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="user_dashboard.php">Dashboard</a></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="?logout">Logout</a></li>
                         </ul>
                     </div>
                 <?php } ?>

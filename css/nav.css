@@ -94,19 +94,19 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .dropdown-menu {
+        .dropdown-menu-php {
             background: #f8f4e6;
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .dropdown-item {
+        .dropdown-item-php {
             color: #181818;
             transition: all 0.32s cubic-bezier(.22, 1.61, .36, 1);
             padding: 0.5rem 1rem;
         }
 
-        .dropdown-item:hover {
+        .dropdown-item-php:hover {
             background: #d2e07a;
             transform: translateX(4px);
         }
@@ -124,10 +124,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .dropdown-toggle::after {
+        .dropdown-toggle-php::after {
             transition: transform 0.32s cubic-bezier(.22, 1.61, .36, 1);
         }
 
-        .dropdown.show .dropdown-toggle::after {
+        .dropdown.show .dropdown-toggle-php::after {
             transform: rotate(180deg);
         }
