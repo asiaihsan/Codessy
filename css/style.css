@@ -338,7 +338,6 @@ main {
 /* Footer Styles - New Revamp */
 footer {
     color: #555; /* Dark gray text */
-    padding: 4rem 0;
     margin-top: 5rem;
     border-top: 1px solid #e6e6e6; /* Light gray border */
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04); /* Subtle shadow */

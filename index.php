@@ -1,7 +1,6 @@
 <?php
 require_once 'config.php';
 require_once 'nav.php';
-
 ?>
 
 
@@ -82,7 +81,14 @@ require_once 'nav.php';
         
         <section class="why-webdev">
             <h2>Why Web Development?</h2>
-            <div class="reasons-grid">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="2000">
+                  <div class="reasons-grid">
                 <div class="reason-card">
                     <h3>It's creative</h3>
                     <p>Build interactive sites the way you want and bring your ideas to life. Coding isn't just logical—it's also artistic.</p>
@@ -98,6 +104,11 @@ require_once 'nav.php';
                     <p>Web development is a sought-after skill today. Companies around the world need developers for websites, apps, and more.</p>
                     <img src="assest/demand.png" alt="In demand" class="card-img" />
                 </div>
+            </div>
+    
+    </div>
+    <div class="carousel-item">
+        <div class="reasons-grid">
                 <div class="reason-card">
                     <h3>It's accessible</h3>
                     <p>Learn to code from anywhere. Free resources and supportive communities make web development open to everyone, regardless of background.</p>
@@ -114,6 +125,17 @@ require_once 'nav.php';
                     <img src="assest/career.png" alt="Career" class="card-img" />
                 </div>
             </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
         </section>
         <section class="courses" id="courses">
             <h2>Explore Our Courses</h2>
@@ -153,8 +175,8 @@ require_once 'nav.php';
             </div>
         </section>
 
-        <footer class="bg-white rounded-4 py-5">
-            <div class="container">
+        <footer class="container-fluid bg-white rounded-4 py-5">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
                         <h4 class="mb-4">Codessy</h4>
@@ -164,10 +186,11 @@ require_once 'nav.php';
                         <h4 class="mb-4">Quick Links</h4>
                         <nav>
                             <a href="index.php" class="d-block mb-2 text-decoration-none">Home</a>
-                            <a href="courses.php" class="d-block mb-2 text-decoration-none">Courses</a>
                             <a href="lectures.php" class="d-block mb-2 text-decoration-none">Lectures</a>
                             <a href="quiz.php" class="d-block mb-2 text-decoration-none">Quizzes</a>
-                            <a href="profile.php" class="d-block text-decoration-none">Profile</a>
+                            <?php if (isset($_SESSION['userID'])): ?>
+                                <a href="profile.php" class="d-block mb-2 text-decoration-none">Profile</a>
+                            <?php endif; ?>
                         </nav>
                     </div>
                     <div class="col-md-4">

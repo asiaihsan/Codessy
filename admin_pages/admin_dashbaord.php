@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once 'admin_nav.php';
 if (!$session->isAdminLoggedIn()) {
     header("Location: ad123min_login.php");
     exit();
@@ -12,10 +13,7 @@ if (!$session->isAdminLoggedIn()) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+   
   <title>Document</title>
 </head>
 <body>

@@ -83,15 +83,15 @@ class Database {
         }
     }
 
-    public function adminLogin($username, $password) {
+    public function adminLogin($username) {
         try {
-            $sql = "SELECT * FROM admins WHERE admin_name = ? AND admin_password = ?";
+            $sql = "SELECT * FROM admins WHERE admin_name = ?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$username, $password]);
+            $stmt->execute([$username]);
             if($stmt->rowCount() > 0) {
                 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
                 $this->adminID = $admin['id'];
-                return true;
+                return $admin;
             } else {
                 return false;
             }

@@ -80,9 +80,7 @@ if (isset($_SESSION['userID'])) {
             $_SESSION['message'] = '<div class="alert alert-danger">Error saving your progress.</div>';
         }
     }
-} else {
-    $_SESSION['message'] = '<div class="alert alert-warning">Please log in to save your progress.</div>';
-}
+} 
 
 ?>
 
