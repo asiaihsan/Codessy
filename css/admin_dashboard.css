@@ -17,15 +17,6 @@
     --border-radius: 12px;
 }
 
-body {
-    margin: 0;
-    padding: 2rem;
-    font-family: 'Segoe UI', 'Roboto', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-primary);
-    line-height: 1.6;
-}
-
 .container {
     max-width: 1400px;
     margin: 0 auto;

@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($admin && password_verify($password, $admin['admin_password'])) {
             $session->adminID = $admin['id'];
             $session->adminSession($username, $admin['admin_password']);
-            header("Location: admin_dashbaord.php");
+            header("Location: admin_hbaord.php");
             exit();
         } else {
             $error = "Invalid username or password.";
