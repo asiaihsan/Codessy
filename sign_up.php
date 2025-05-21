@@ -17,9 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (strlen($password) < 6) {
         $error = "Password must be at least 6 characters long.";
     } else {
-        if ($pdo->signUp($username, $password, $email)) {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        if ($pdo->signUp($username, $hashedPassword, $email)) {
             $session->userID = $pdo->userID;
-            $session->login($username, $password);
+            $session->login($username, $hashedPassword);
             header("Location: index.php");
             exit();
         } else {

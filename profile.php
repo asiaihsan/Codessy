@@ -2,33 +2,55 @@
 require_once 'config.php';
 require_once 'nav.php';
 
+if (!$session->isLoggedIn && !isset($_SESSION['userID'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Validation
+function is_valid_email($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+function is_valid_username($username) {
+    return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username);
+}
+
+function is_valid_password($password) {
+    return strlen($password) >= 6;
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     if (empty($username) || empty($email) || empty($password)) {
-        echo '<div class="alert alert-danger">All fields are required!</div>';
-        
-    }else{
-
-    $stmt = $pdo->query("UPDATE users SET user_name = '$username', user_email = '$email', user_password = '$password' WHERE id = '$session->userID'");
-    if($stmt) {
-       header("Location: profile.php");
-       exit();
+        $_SESSION['error'] = 'All fields are required!';
+    } elseif (!is_valid_username($username)) {
+        $_SESSION['error'] = 'Invalid username! Only letters, numbers, and underscores (3-20 chars).';
+    } elseif (!is_valid_email($email)) {
+        $_SESSION['error'] = 'Invalid email format!';
+    } elseif (!is_valid_password($password)) {
+        $_SESSION['error'] = 'Password must be at least 6 characters!';
     } else {
-        echo '<div class="alert alert-danger">Error updating profile!</div>';
-       
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $stmt = $pdo->query("UPDATE users SET user_name = '$username', user_email = '$email', user_password = '$hashedPassword' WHERE id = '$session->userID'");
+        if ($stmt) {
+            $_SESSION['success'] = 'Profile updated successfully!';
+            header("Location: profile.php");
+            exit();
+        } else {
+            $_SESSION['error'] = 'Error updating profile!';
+        }
     }
-
-    // Update user profile in the database
-
-    }
+    header("Location: profile.php");
+    exit();
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile'])) {
     $stmt = $pdo->query("DELETE FROM users WHERE id = '$session->userID'");
     if($stmt) {
+        session_destroy();
         header("Location: login.php");
         exit();
     } else {
@@ -52,10 +74,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile'])) {
         </div>
 
         <div class="profile-form">
+            <?php
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']);
+            }   
+            if (isset($_SESSION['success'])) {
+                echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']);
+            }
+            ?>
+           
             <form action="profile.php" method="POST">
                 <?php
                 $stmt = $pdo->query("SELECT * FROM users WHERE id = '$session->userID'");
+
                 foreach ($stmt as $row) {
+                    // Display message if exists
+
                     ?>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

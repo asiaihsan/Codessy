@@ -17,6 +17,12 @@ if (isset($_GET['language_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/nav.css">
+    <style>
+ .dropdown-item:hover{
+        background-color: inherit;
+    }
+    </style>
+   
     
     <title>Navigation_top</title>
 </head>
@@ -51,14 +57,16 @@ if (isset($_GET['language_id'])) {
                     </div>
                 <?php } else { ?>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle-php  dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle-php dropdown-toggle rounded-pill" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                             <i class="bi bi-person"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-php dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item dropdown-item-php" href=""><?php echo htmlspecialchars($session->userID); ?></a></li>
-                            <li><a class="dropdown-item dropdown-item-php" href="profile.php">Profile</a></li>
-                            <li><a class="dropdown-item dropdown-item-php" href="user_dashboard.php">Dashboard</a></li>
-                            <li><a class="dropdown-item dropdown-item-php" href="?logout">Logout</a></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="#"><i class="bi bi-person-circle me-2"></i><?php echo htmlspecialchars($session->userID); ?></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="profile.php"><i class="bi bi-person-lines-fill me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item dropdown-item-php" href="user_dashboard.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item dropdown-item-php text-danger" href="?logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                         </ul>
                     </div>
                 <?php } ?>

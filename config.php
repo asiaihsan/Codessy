@@ -42,16 +42,18 @@ class Database {
                 return false;
             }
 
+            // Hash the password before storing
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
             // Insert new user
             $sql = "INSERT INTO users (user_name, user_password, user_email, created_at) VALUES (?, ?, ?, NOW())";
             $stmt = $this->pdo->prepare($sql);
-            if ($stmt->execute([$username, $password, $email])) {
+            if ($stmt->execute([$username, $hashed_password, $email])) {
                 // Get the new user
                 $user = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
                 $user->execute([$username]);
                 if ($user->rowCount() > 0) {
-                    $userData = $user->fetch(PDO::FETCH_ASSOC);
-                    $this->userID = $userData['id'];
+                    $this->userID = $user->fetch(PDO::FETCH_ASSOC)['id'];
                     // Start session and set session variables
                     if (session_status() === PHP_SESSION_NONE) {
                         session_start();
@@ -69,15 +71,16 @@ class Database {
 
     public function login($username, $password) {
         try {
-            $check = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ? OR user_email = ?");
-            $check->execute([$username, $password]);
-            if($check->rowCount() > 0) {
-                $user = $check->fetch(PDO::FETCH_ASSOC);
+            // Get user by username
+            $stmt = $this->pdo->prepare("SELECT * FROM users WHERE user_name = ?");
+            $stmt->execute([$username]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['user_password'])) {
                 $this->userID = $user['id'];
                 return true;
-            }else{
-                return false;
             }
+            return false;
         } catch(PDOException $e) {
             return false;
         }

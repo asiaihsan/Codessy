@@ -3,6 +3,20 @@ require_once 'config.php';
 
 $error = '';
 
+// Additional validation function
+function validate_login_input($username, $password) {
+    if (strlen($username) < 3 || strlen($username) > 32) {
+        return "Username must be between 3 and 32 characters.";
+    }
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        return "Username can only contain letters, numbers, and underscores.";
+    }
+    if (strlen($password) < 6) {
+        return "Password must be at least 6 characters.";
+    }
+    return '';
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
@@ -11,14 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username) || empty($password)) {
         $error = "Both username and password are required.";
     } else {
-        if ($pdo->login($username, $password)) {
-            $session->userID = $pdo->userID;
-            $session->login($username, $password);
-            
-            header("Location: index.php");
-            exit();
+        // Additional validation
+        $validationError = validate_login_input($username, $password);
+        if ($validationError !== '') {
+            $error = $validationError;
         } else {
-            $error = "Invalid username or password.";
+            if ($pdo->login($username, $password)) {
+                $session->userID = $pdo->userID;
+                $session->login($username, $password);
+                
+                header("Location: index.php");
+                exit();
+            } else {
+                $error = "Invalid username or password.";
+            }
         }
     }
 }

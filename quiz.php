@@ -16,7 +16,7 @@ $quiz_id = $_GET['quiz_id'] ;
 
 
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit']) && isset($_POST['answer'])) {
     $answer = trim($_POST['answer']);
     $current_quiz_id = intval($_GET['quiz_id']); // Get quiz_id from URL
     
@@ -32,7 +32,7 @@ if(isset($_POST['submit'])) {
         $correctAnswer = trim($row['quiz_answer']);
 
         if ($userAnswer === $correctAnswer) {
-            $_SESSION['message'] = '<div class="alert alert-success">Correct answer! Well done!</div>';
+            $_SESSION['message'] = 'Correct answer! Well done!';
 
             if (isset($session->userID)) {
                 $userID = $session->userID;
@@ -44,29 +44,25 @@ if(isset($_POST['submit'])) {
                     // If not completed, insert the completion
                     $insert_sql = "INSERT INTO completed_quizzes (user_id, quiz_id,user_answer, created_at) VALUES (" . intval($userID) . ", " . intval($current_quiz_id) . ", '" . $userAnswer . "', NOW())";
                     if ($pdo->query($insert_sql)) {
-                        $_SESSION['message'] = '<div class="alert alert-success">Quiz completed successfully!</div>';
+                        $_SESSION['message'] = 'Quiz completed successfully!</div>';
                     } else {
-                        $_SESSION['message'] = '<div class="alert alert-danger">Error saving your progress.</div>';
+                        $_SESSION['message'] = 'Error saving your progress.';
                     }
                 }else{
 
-                    $_SESSION['message'] = '<div class="alert alert-info">You have already completed this quiz.</div>';
+                    $_SESSION['message'] = 'You have already completed this quiz.';
                 }
             }
 
             header("Location: quiz.php?quiz_id=" . $current_quiz_id . "&language_id=" . $id);
             exit();
         } else {
-            $_SESSION['message'] = '<div class="alert alert-danger">Incorrect answer. Please try again.</div>';
+            $_SESSION['message'] = 'Incorrect answer. Please try again.';
         }
     }
 }
 
-// Display message if exists
-if (isset($_SESSION['message'])) {
-    echo $_SESSION['message'];
-    unset($_SESSION['message']);
-}
+
 
 if (isset($_GET['next'])) {
     // Find the next quiz with a higher ID for the same language
@@ -164,14 +160,8 @@ if ($current_quiz_id) {
       $quiz_id = $_GET['quiz_id'] ;
     }
 
-
-
     ?>
-
-
-    <div class="container-quiz">
-        <h1 class="quiz-title">Welcome to the Tutorials</h1>
-        <div class="quiz-content">
+        <div class="quiz-content container mt-5 justify-content-center">
             <div class="quiz-example">
                 <div class="example-header">
                     <label class="example-label">Example</label>
@@ -193,12 +183,20 @@ if ($current_quiz_id) {
                     </div>
                     <form class="quiz-form" action="quiz.php?quiz_id=<?php echo $current_quiz_id; ?>&language_id=<?php echo $id; ?>" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control quiz-input" name="answer" id="answer" placeholder="Enter your answer">
+                            <input type="text" class="form-control quiz-input" name="answer" id="answer" required placeholder="Enter your answer">
                         </div>
                         <div class="quiz-buttons">
                             <button type="submit" name="submit" class="btn-quiz btn-submit">Submit</button>
                         </div>
                     </form>
+
+                    <!-- Modal -->
+                    <div id="quizModal" class="modal">
+                        <div class="modal-content">
+                            <div id="modalMessage" class="modal-message"></div>
+                            <button class="modal-close">Close</button>
+                        </div>
+                    </div>
 
                     <form class="quiz-nav-form" action="quiz.php" method="get">
                         <input type="hidden" name="language_id" value="<?php echo $id; ?>">
@@ -214,5 +212,55 @@ if ($current_quiz_id) {
             </div>
         </div>
     </div>
+<?php
+if (isset($_SESSION['message'])) {
+    // Modal
+    echo '<div class="modal fade" id="quizModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalTitle">Quiz Feedback</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalMessage">
+                    <!-- Message will be inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>';
+}
+    ?>
+
+    <!-- Add Bootstrap JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('quizModal');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalClose = document.querySelector('.modal-close');
+            const submitButton = document.querySelector('.btn-submit');
+
+            // Check if there's a message in session
+            <?php if (isset($_SESSION['message'])): ?>
+                modalMessage.textContent = '<?php echo htmlspecialchars($_SESSION["message"]); ?>';
+                modal.style.display = 'block';
+                <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
+
+            // Close modal when clicking the close button
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
